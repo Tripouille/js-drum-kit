@@ -28,7 +28,7 @@
             }
 
             const keysContainer = document.querySelector(".keys");
-            songs.forEach((song) => {
+            songs.forEach((song, index) => {
                 const key = document.createElement("div");
                 key.addEventListener("transitionend", removeTransition);
                 key.classList.add("key");
@@ -41,6 +41,22 @@
                 span.classList.add("sound");
                 span.textContent = song.sound;
                 key.appendChild(span);
+                const editButton = document.createElement("button");
+                editButton.classList.add("change-key");
+                editButton.textContent = "Change Key";
+                editButton.addEventListener("click", () => {
+                    const newKey = prompt("Enter new key");
+                    if (newKey) {
+                        song.key = newKey;
+                        kbd.textContent = newKey;
+                        key.setAttribute("data-key", newKey.charCodeAt(0));
+                        const oldAudio = document.querySelector(
+                            `audio[src*="${song.sound}"]`
+                        );
+                        oldAudio.setAttribute("data-key", newKey.charCodeAt(0));
+                    }
+                });
+                key.appendChild(editButton);
 
                 const audio = document.createElement("audio");
                 audio.setAttribute("data-key", song.key.charCodeAt(0));

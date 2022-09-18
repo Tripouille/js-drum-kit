@@ -49,3 +49,11 @@ kbd {
   letter-spacing: .1rem;
   color: #ffc600;
 }
+
+.change-key {
+  margin-top: 1em;
+  background-color: transparent;
+  color: white;
+  border: 1px solid white;
+  border-radius: 5px;
+}
