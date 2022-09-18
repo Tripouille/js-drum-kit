@@ -8,8 +8,7 @@
         <link rel="stylesheet" href="style.css" />
     </head>
     <body>
-        <div class="keys">  
-        </div>
+        <div class="keys"></div>
 
         <script>
             const songs = [
@@ -23,9 +22,15 @@
                 { key: "K", sound: "tom" },
                 { key: "L", sound: "tink" },
             ];
+            function removeTransition(event) {
+                if (event.propertyName !== "transform") return;
+                event.target.classList.remove("playing");
+            }
+
             const keysContainer = document.querySelector(".keys");
             songs.forEach((song) => {
                 const key = document.createElement("div");
+                key.addEventListener("transitionend", removeTransition);
                 key.classList.add("key");
                 key.setAttribute("data-key", song.key.charCodeAt(0));
                 const kbd = document.createElement("kbd");
@@ -60,15 +65,6 @@
                     audio.play();
                 }
             }
-
-            const keys = document.querySelectorAll(".key");
-            function removeTransition(event) {
-                if (event.propertyName !== "transform") return;
-                event.target.classList.remove("playing");
-            }
-            keys.forEach((key) =>
-                key.addEventListener("transitionend", removeTransition)
-            );
             window.addEventListener("keydown", playSong);
         </script>
     </body>
